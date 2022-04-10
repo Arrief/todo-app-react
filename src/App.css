@@ -50,9 +50,11 @@
   background-color: white;
   border: solid black 4px;
   border-radius: 5px;
-  margin-right: 10rem;
+  height: 27rem;
   margin-bottom: 2rem;
+  margin-right: 10rem;
   padding: 2rem;
+  width: 22rem;
 }
 
 .todo-item {
