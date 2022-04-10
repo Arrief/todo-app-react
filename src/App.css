@@ -36,3 +36,57 @@
     transform: rotate(360deg);
   }
 }
+
+.category {
+  color: #f77b7b;
+}
+
+.display-section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.filter-selection {
+  background-color: white;
+  border: solid black 4px;
+  border-radius: 5px;
+  margin-right: 10rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: solid black 4px;
+  border-radius: 5px;
+  margin: 1rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  padding: .5rem;
+}
+
+button {
+  margin-left: .5rem;
+}
+
+h1, .wild {
+  color: #f77b7b;
+  font-weight: bold;
+}
+
+li {
+  margin: 1rem;
+}
+
+.welcome-message {
+  background-color: white;
+  border: solid black 4px;
+  border-radius: 5px;
+  margin-top: 10rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  padding: 1rem;
+}
