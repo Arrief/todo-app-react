@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import './App.css';
-import Button from './components/Button';
-import Categories from './data/Categories';
-import DropdownSelect from './components/DropdownSelect';
-import FilterSelection from './components/FilterSelection';
-import InitialTodos from './data/InitialTodos';
-import TodoItem from './components/TodoItem';
-import Welcome from './components/Welcome';
+import React, { useState } from "react";
+import "./App.css";
+import Button from "./components/Button";
+import Categories from "./data/Categories";
+import DropdownSelect from "./components/DropdownSelect";
+import FilterSelection from "./components/FilterSelection";
+import InitialTodos from "./data/InitialTodos";
+import TodoItem from "./components/TodoItem";
+import Welcome from "./components/Welcome";
 
 function App() {
   // complete array of all todos, initial examples + later user input
@@ -14,7 +14,7 @@ function App() {
   // single todo object containing task & category
   let [todo, setTodo] = useState({});
   // single task set by user
-  let [task, setTask] = useState("")
+  let [task, setTask] = useState("");
   // single category selected by user from dropdown menu
   let [category, setCategory] = useState("");
   // category of todos to be display, initially "All"
@@ -38,8 +38,10 @@ function App() {
   // fn to create new todo when user submits input, then add new todo to listOfTodos and clear task/input
   const handleSubmit = (event) => {
     event.preventDefault();
-    setTodo({task: task, category: category});
-    setListOfTodos([...listOfTodos, todo]);
+    let newTodo = { task: task, category: category };
+    // ! not working with state, only with variable above
+    // setTodo({task: task, category: category});
+    setListOfTodos([...listOfTodos, newTodo]);
     setTask("");
     setCategory("");
   };
@@ -49,11 +51,13 @@ function App() {
     let selectedFilter = event.currentTarget.innerHTML;
 
     // since there is no "All" category, this condition displays the whole listOfTodos, when the user selects option "All"; otherwise active by default
-    if(selectedFilter === "All") {
+    if (selectedFilter === "All") {
       return setDisplayCategory("All");
     }
 
-    let categoryToDisplay = listOfTodos.filter(element => element.category === selectedFilter);
+    let categoryToDisplay = listOfTodos.filter(
+      (element) => element.category === selectedFilter
+    );
     // since all elements in the array have the same category after filter, we only need first one to get the category value/name
     setDisplayCategory(categoryToDisplay[0].category);
     setTodosFiltered(categoryToDisplay);
@@ -67,7 +71,9 @@ function App() {
   };
 
   const deleteTodoFiltered = (itemTodo) => {
-    let indexFiltered = todosFiltered.findIndex((element) => element === itemTodo);
+    let indexFiltered = todosFiltered.findIndex(
+      (element) => element === itemTodo
+    );
     let copyTodosFiltered = [...todosFiltered];
     copyTodosFiltered.splice(indexFiltered, 1);
     setTodosFiltered(copyTodosFiltered);
@@ -76,19 +82,22 @@ function App() {
 
   return (
     <div className="App">
-      {
-        screen === "welcome" && 
+      {screen === "welcome" && (
         <Welcome action={changeScreen} text="Get started!" />
-      }
-      {
-        screen === "displayTodos" && (
-          <>
+      )}
+      {screen === "displayTodos" && (
+        <>
           <h1>Wild ToDo</h1>
           <section>
             <form onSubmit={handleSubmit}>
-              <input type="text" onChange={handleChange} value={task}  placeholder="to do..."></input>
-              <DropdownSelect action={handleCategory} value={Categories}/>
-              <Button text="Add a ToDo"/>
+              <input
+                type="text"
+                onChange={handleChange}
+                value={task}
+                placeholder="to do..."
+              />
+              <DropdownSelect action={handleCategory} value={Categories} />
+              <Button text="Add a ToDo" />
             </form>
           </section>
 
@@ -97,26 +106,27 @@ function App() {
             <section className="display-section">
               <div>
                 {displayCategory === "All"
-                    ? listOfTodos.map((item, index) => (
-                      <div className='todo-item' key={index}>
+                  ? listOfTodos.map((item, index) => (
+                      <div className="todo-item" key={index}>
                         <TodoItem item={item} />
                         <Button action={() => deleteTodo(item)} text="DONE!" />
                       </div>
                     ))
-                    : todosFiltered.map((item, index) => (
-                      <div className='todo-item' key={index}>
+                  : todosFiltered.map((item, index) => (
+                      <div className="todo-item" key={index}>
                         <TodoItem item={item} />
-                        <Button action={() => deleteTodoFiltered(item)} text="DONE!" />
+                        <Button
+                          action={() => deleteTodoFiltered(item)}
+                          text="DONE!"
+                        />
                       </div>
-                    ))
-                }
+                    ))}
               </div>
-              <FilterSelection action={handleFilter}/>
+              <FilterSelection action={handleFilter} />
             </section>
           </div>
-          </>
-        )
-      }
+        </>
+      )}
     </div>
   );
 }
