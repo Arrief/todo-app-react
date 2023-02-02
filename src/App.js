@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./index.css";
 import Button from "./components/Button";
 import Categories from "./data/Categories";
 import DropdownSelect from "./components/DropdownSelect";
@@ -11,8 +11,6 @@ import Welcome from "./components/Welcome";
 function App() {
   // complete array of all todos, initial examples + later user input
   let [listOfTodos, setListOfTodos] = useState(InitialTodos);
-  // single todo object containing task & category
-  let [todo, setTodo] = useState({});
   // single task set by user
   let [task, setTask] = useState("");
   // single category selected by user from dropdown menu
@@ -23,6 +21,8 @@ function App() {
   let [todosFiltered, setTodosFiltered] = useState([]);
   // state & function to change from welcome screen to todo list
   let [screen, setScreen] = useState("welcome");
+
+  // fn to switch from <Welcome /> component to the main part
   const changeScreen = () => setScreen("displayTodos");
 
   // fn to set state for task when user types input
@@ -81,13 +81,14 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div>
       {screen === "welcome" && (
         <Welcome action={changeScreen} text="Get started!" />
       )}
+      {/* display to-do list if user changed "screen" state with button click in <Welcome /> */}
       {screen === "displayTodos" && (
         <>
-          <h1>Wild ToDo</h1>
+          <h1 className="brand-name">Wild ToDo</h1>
           <section>
             <form onSubmit={handleSubmit}>
               <input
@@ -97,12 +98,12 @@ function App() {
                 placeholder="to do..."
               />
               <DropdownSelect action={handleCategory} value={Categories} />
-              <Button text="Add a ToDo" />
+              <button>Add a ToDo</button>
             </form>
           </section>
 
           <div>
-            <h3>List of your ToDos</h3>
+            <h3>Your list of ToDos</h3>
             <section className="display-section">
               <div>
                 {displayCategory === "All"
